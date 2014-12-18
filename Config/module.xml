@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+    <fullnamespace>Markdown\Markdown</fullnamespace>
+    <descriptive locale="en_US">
+        <title>Markdown editor</title>
+    </descriptive>
+    <descriptive locale="fr_FR">
+        <title>Editeur Markdown</title>
+    </descriptive>
+    <version>1.0.0</version>
+    <author>
+        <name>Michaël Espeche</name>
+        <email>michael.espeche@gmail.com</email>
+    </author>
+    <type>classic</type>
+    <thelia>2.0.0</thelia>
+    <stability>beta</stability>
+</module>
