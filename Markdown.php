@@ -12,14 +12,41 @@
 
 namespace Markdown;
 
+use Propel\Runtime\Connection\ConnectionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Thelia\Module\BaseModule;
 
 class Markdown extends BaseModule
 {
-    /*
-     * You may now override BaseModuleInterface methods, such as:
-     * install, destroy, preActivation, postActivation, preDeactivation, postDeactivation
-     *
-     * Have fun !
+
+    private $jsPath, $webJsPath;
+
+    public function __construct()
+    {
+        $this->jsPath = __DIR__ . DS .'Resources' . DS . 'js';
+
+        $this->webJsPath = THELIA_WEB_DIR . 'markdown';
+    }
+    /**
+     * @inheritdoc
      */
+    public function postActivation(ConnectionInterface $con = null)
+    {
+        $fs = new Filesystem();
+
+        // Create symbolic links in the web directory, to make the Markdown code available.
+        if (false === $fs->exists($this->webJsPath)) {
+            $fs->symlink($this->jsPath, $this->webJsPath);
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function postDeactivation(ConnectionInterface $con = null)
+    {
+        $fs = new Filesystem();
+
+        $fs->remove($this->webJsPath);
+    }
 }
